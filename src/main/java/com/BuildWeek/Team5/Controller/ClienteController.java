@@ -78,9 +78,10 @@ public class ClienteController {
         try {
             Cliente cliente = clienteRepository.findById(clienteID).orElseThrow(() -> new ClienteNotFound("Cliente non trovato!"));
             Fattura fattura = fatturaService.fromFatturaDTOtoFattura(fatturaDTO);
+            long idFattura = fatturaService.salvaFattura(fattura);
             cliente.getFatture().add(fattura);
             clienteService.salvaCliente(cliente);
-            return new ResponseEntity<>("La fattura è stata aggiunta con successo!", HttpStatus.CREATED);
+            return new ResponseEntity<>("La fattura con ID " + idFattura + " è stata aggiunta con successo!", HttpStatus.CREATED);
         } catch (ClienteNotFound e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }

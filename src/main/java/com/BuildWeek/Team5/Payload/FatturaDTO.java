@@ -17,6 +17,7 @@ public class FatturaDTO {
     private LocalDate dataFattura;
     @NotNull(message = "Campo Importo obbligatorio")
     private double importo;
+    @Enumerated(EnumType.STRING)
     private StatoFattura statoFattura;
 
     public FatturaDTO() {
