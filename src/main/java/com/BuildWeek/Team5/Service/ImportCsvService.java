@@ -23,7 +23,7 @@ public class ImportCsvService {
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))){
             String line; //Capire meglio
             while ((line = br.readLine()) != null){ //va avanti per tutte le linee
-                String[] data = line.split(",");
+                String[] data = line.split(";");
                 if (data.length >= 5){
                     ImportComuniProvince comuniProvince = new ImportComuniProvince();
                     comuniProvince.setComune(data[0].trim());

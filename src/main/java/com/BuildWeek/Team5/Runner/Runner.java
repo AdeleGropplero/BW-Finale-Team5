@@ -13,7 +13,7 @@ public class Runner implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         System.out.println("⚡ Importazione CSV avviata...");
-        importCsvService.importComuniProvince("src/main/resources/comuni-provincia.csv");
+        importCsvService.importComuniProvince("src/main/resources/comuni-provincie.csv");
         importCsvService.importCap("src/main/resources/cap.csv");
         System.out.println("✅ Importazione completata!");
     }
