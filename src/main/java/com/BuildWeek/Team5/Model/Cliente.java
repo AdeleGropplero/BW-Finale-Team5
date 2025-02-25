@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Table(name="clienti")
@@ -40,4 +41,8 @@ public class Cliente {
     private String telefonoContatto;
 
     private String logoAziendale;
+
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name="idCliente")
+    private Set<Fattura> fatture;
 }

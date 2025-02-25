@@ -14,8 +14,7 @@ public class ClienteService {
     ClienteRepository clienteRepository;
 
     //salva
-    public Long salvaCliente(ClienteDTO clienteDTO){
-        Cliente cliente = fromClienteDTOtoCliente(clienteDTO);
+    public Long salvaCliente(Cliente cliente){
         clienteRepository.save(cliente);
         return cliente.getIdCliente();
     }
@@ -58,6 +57,7 @@ public class ClienteService {
         clienteDTO.setCognomeContatto(cliente.getCognomeContatto());
         clienteDTO.setTelefonoContatto(cliente.getTelefonoContatto());
         clienteDTO.setLogoAziendale(cliente.getLogoAziendale());
+        clienteDTO.setRagioneSociale(cliente.getRagioneSociale());
         return clienteDTO;
     }
 
