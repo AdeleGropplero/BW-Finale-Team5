@@ -28,8 +28,10 @@ public class Utente {
 
     private String cognome;
 
-    //private String avatar;
+    private String avatar;
 
+    @Embedded
+    private Ruolo ruolo;
 
     public Utente(String username, String email, String password, String nome, String cognome) {
         this.username = username;
