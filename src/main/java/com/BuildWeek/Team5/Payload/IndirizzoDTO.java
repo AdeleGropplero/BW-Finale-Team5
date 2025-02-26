@@ -25,6 +25,7 @@ public class IndirizzoDTO {
     @NotNull(message = "Il campo TipoSede non può essere vuoto")
     private TipoSede sede;
 
+
     @Override
     public String toString() {
         return "\n{" + '\n' +

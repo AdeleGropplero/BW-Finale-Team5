@@ -37,8 +37,7 @@ public class IndirizzoMapper {
         entity.setVia(dto.getVia());
         entity.setCivico(dto.getCivico());
         entity.setComune(dto.getComune());
-        //Facciamo arrivare al db l'enum SEMPRE maiuscolo
-        entity.setSede(TipoSede.valueOf(dto.getSede().name().toUpperCase()));
+        entity.setSede(dto.getSede());
         entity.setCap(recuperoCap(dto.getComune()));
         entity.setProvincia(recuperoProvincia(dto.getComune()));
         return entity;

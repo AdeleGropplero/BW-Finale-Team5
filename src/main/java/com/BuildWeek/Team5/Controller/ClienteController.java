@@ -178,7 +178,17 @@ public class ClienteController {
         }
     }
 
-    //Per provincia serve indirizzo.
+    @GetMapping("/clientiPerProvinciaSedeLegale")
+    public ResponseEntity<String> clientiPerProvinciaSedeLegale() {
+        try {
+            String clientiPerProvinciaSedeLegale = clienteService.clientiPerProvinciaSedeLegale();
+            return new ResponseEntity<>(clientiPerProvinciaSedeLegale, HttpStatus.OK);
+        } catch (ClienteNotFound e) {
+            return new ResponseEntity<>("Non è stato trovato nessun cliente", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
 
 
     //----------------------------------------------------------------------------------------------------

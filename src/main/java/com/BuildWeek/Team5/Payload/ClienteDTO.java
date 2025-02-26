@@ -1,6 +1,7 @@
 package com.BuildWeek.Team5.Payload;
 
 import com.BuildWeek.Team5.Enum.RagioneSociale;
+import com.BuildWeek.Team5.Model.Fattura;
 import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -13,6 +14,7 @@ import org.hibernate.validator.constraints.URL;
 
 import java.time.LocalDate;
 import java.util.Random;
+import java.util.Set;
 
 @Data
 public class ClienteDTO {
@@ -53,6 +55,10 @@ public class ClienteDTO {
 
     @URL
     private String logoAziendale;
+
+    private Set<FatturaDTO> fatture;
+
+    private Set<IndirizzoDTO> indirizzi;
 
     public ClienteDTO() {
         //generazione randomica della ragione sociale del client

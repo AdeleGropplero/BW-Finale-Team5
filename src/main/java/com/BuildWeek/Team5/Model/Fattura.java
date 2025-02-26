@@ -15,12 +15,17 @@ public class Fattura {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(nullable = false)
     private LocalDate dataFattura;
+
     @Column(nullable = false)
     private double importo;
+
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private StatoFattura statoFattura;
+
+
 
 }

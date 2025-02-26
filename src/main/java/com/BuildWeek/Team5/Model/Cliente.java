@@ -55,10 +55,10 @@ public class Cliente {
     private String logoAziendale;
 
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name="idFattura")
+    @JoinColumn(name="cliente_id")
     private Set<Fattura> fatture;
 
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name="idIndirizzo")
+    @JoinColumn(name="id_cliente")
     private Set<Indirizzo> indirizzi;
 }
