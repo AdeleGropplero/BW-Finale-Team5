@@ -17,7 +17,7 @@ public class IndirizzoDTO {
     private String localita;
 
     @NotNull(message = "Il campo cap non può essere vuoto")
-    private int cap;
+    private String cap;  //ho cambiato da int a String vediamo se da errori
 
     private String comune;
 }

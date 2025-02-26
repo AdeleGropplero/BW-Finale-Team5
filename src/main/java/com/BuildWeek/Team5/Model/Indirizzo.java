@@ -22,18 +22,16 @@ public class Indirizzo {
     private int civico;
 
     @Column(nullable = false)
-    private String localita;
+    private String localita; // Sigla provincia, Regione
 
     @Column(nullable = false)
-    private int cap;
+    private String cap; //ho cambiato da int a String vediamo se da errori
 
     private String comune;
 
-    public Indirizzo(String via, int civico, String localita, int cap, String comune) {
+    public Indirizzo(String via, int civico,  String comune) {
         this.via = via;
         this.civico = civico;
-        this.localita = localita;
-        this.cap = cap;
         this.comune = comune;
     }
 }
