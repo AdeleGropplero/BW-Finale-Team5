@@ -1,11 +1,17 @@
 package com.BuildWeek.Team5.Service;
 
+import com.BuildWeek.Team5.Exception.ClienteNotFound;
 import com.BuildWeek.Team5.Model.Cliente;
 import com.BuildWeek.Team5.Payload.ClienteDTO;
 import com.BuildWeek.Team5.Repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -19,10 +25,47 @@ public class ClienteService {
         return cliente.getIdCliente();
     }
 
+    public void leggiArrayClienti(ArrayList<ClienteDTO> clientiDTO){
 
+        for(ClienteDTO singoloCliente : clientiDTO){
+            Cliente nuovoCliente = fromClienteDTOtoCliente(singoloCliente);
+            salvaCliente(nuovoCliente);
+        }
+    }
 
+    //filtra per fatturato annuale
+    public List<Cliente> getByFatturatoAnnuale(double fatturatoAnnuale){
+        List<Cliente> clientiByFatturato = clienteRepository.findByFatturatoAnnualeGreaterThan(fatturatoAnnuale);
+        if(clientiByFatturato.isEmpty()){
+            throw new ClienteNotFound("Nessun cliente ha questo fatturato annuale");
+        }
+        return clientiByFatturato;
+    }
 
+    //filtra per data di inserimento
+    public List<Cliente> getByDataInserimento(LocalDate dataInserimento){
+        List<Cliente> clientiByDataInserimento =  clienteRepository.findByDataInserimentoBefore(dataInserimento);
+        if(clientiByDataInserimento.isEmpty()){
+            throw new ClienteNotFound("Nessun cliente inserito prima di questa data!");
+        }
+        return clientiByDataInserimento;
+    }
 
+    public List<Cliente> getByDataUltimoContatto(LocalDate dataUltimoContatto){
+        List<Cliente> clientiByDataUltimoContatto = clienteRepository.findByDataUltimoContattoBefore(dataUltimoContatto);
+        if(clientiByDataUltimoContatto.isEmpty()){
+            throw new ClienteNotFound("Nessun cliente ha avuto l'ultimo contatto prima di questa data!");
+        }
+        return clientiByDataUltimoContatto;
+    }
+
+    public List<Cliente> getByNomeContatto(String nomeContatto){
+        List<Cliente> clientiByNomeContatto = clienteRepository.findByNomeContattoContaining(nomeContatto);
+        if(clientiByNomeContatto.isEmpty()){
+            throw new ClienteNotFound("Nessun cliente ha questa stringa nel nome!");
+        }
+        return clientiByNomeContatto;
+    }
 
     //travaso
     public Cliente fromClienteDTOtoCliente(ClienteDTO clienteDTO){
