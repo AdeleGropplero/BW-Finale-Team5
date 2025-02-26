@@ -1,6 +1,7 @@
 package com.BuildWeek.Team5.Payload;
 
 
+import com.BuildWeek.Team5.Enum.TipoSede;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -21,6 +22,9 @@ public class IndirizzoDTO {
     @NotBlank(message = "Il campo comune non può essere vuoto")
     private String comune;
 
+    @NotNull(message = "Il campo TipoSede non può essere vuoto")
+    private TipoSede sede;
+
     @Override
     public String toString() {
         return "\n{" + '\n' +
@@ -32,3 +36,13 @@ public class IndirizzoDTO {
                 '}';
     }
 }
+
+/*
+Esempio di un Payload su Postman
+{
+  "via": "Via Roma",
+  "civico": 10,
+  "comune": "Roma",
+  "sede": "OPERATIVA"
+}
+*/

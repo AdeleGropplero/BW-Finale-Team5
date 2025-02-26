@@ -1,5 +1,6 @@
 package com.BuildWeek.Team5.Mapper_Travasi;
 
+import com.BuildWeek.Team5.Enum.TipoSede;
 import com.BuildWeek.Team5.Model.Imp.ImportCap;
 import com.BuildWeek.Team5.Model.Imp.ImportComuniProvince;
 import com.BuildWeek.Team5.Model.Indirizzo;
@@ -27,6 +28,7 @@ public class IndirizzoMapper {
         dto.setComune(entity.getComune());
         dto.setProvincia(entity.getProvincia());
         dto.setCap(entity.getCap());
+        dto.setSede(entity.getSede());
         return dto;
     }
 
@@ -35,6 +37,8 @@ public class IndirizzoMapper {
         entity.setVia(dto.getVia());
         entity.setCivico(dto.getCivico());
         entity.setComune(dto.getComune());
+        //Facciamo arrivare al db l'enum SEMPRE maiuscolo
+        entity.setSede(TipoSede.valueOf(dto.getSede().name().toUpperCase()));
         entity.setCap(recuperoCap(dto.getComune()));
         entity.setProvincia(recuperoProvincia(dto.getComune()));
         return entity;

@@ -2,6 +2,7 @@ package com.BuildWeek.Team5.Repository;
 
 import com.BuildWeek.Team5.Model.Cliente;
 import com.BuildWeek.Team5.Model.Fattura;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDate;
@@ -13,4 +14,7 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
     List<Cliente> findByDataInserimentoBefore(LocalDate dataInserimento);
     List<Cliente> findByDataUltimoContattoBefore(LocalDate dataUltimoContatto);
     List<Cliente> findByNomeContattoContaining(String nomeContatto);
+
+
+
 }

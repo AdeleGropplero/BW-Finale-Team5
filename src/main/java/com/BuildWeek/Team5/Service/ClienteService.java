@@ -5,6 +5,7 @@ import com.BuildWeek.Team5.Model.Cliente;
 import com.BuildWeek.Team5.Payload.ClienteDTO;
 import com.BuildWeek.Team5.Repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,6 +13,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -24,6 +26,39 @@ public class ClienteService {
         clienteRepository.save(cliente);
         return cliente.getIdCliente();
     }
+
+    //Ordinamento liste clienti --------------------------------------------------
+
+    public String clientiAZ(){
+        List<Cliente> clientiAZ = clienteRepository.findAll(Sort.by(Sort.Direction.ASC, "nomeContatto"));
+        List<ClienteDTO> clientiDTO = clientiAZ.stream().map(cliente -> fromClienteToClienteDTO(cliente)).collect(Collectors.toList());
+        return clientiDTO.toString();
+    }
+
+    public String clientiPerFatturato(){
+        List<Cliente> clientiAZ = clienteRepository.findAll(Sort.by(Sort.Direction.DESC, "fatturatoAnnuale"));
+        List<ClienteDTO> clientiDTO = clientiAZ.stream().map(cliente -> fromClienteToClienteDTO(cliente)).collect(Collectors.toList());
+        return clientiDTO.toString();
+    }
+
+    public String clientiPerDataInserimento(){
+        List<Cliente> clientiAZ = clienteRepository.findAll(Sort.by(Sort.Direction.DESC, "dataInserimento"));
+        List<ClienteDTO> clientiDTO = clientiAZ.stream().map(cliente -> fromClienteToClienteDTO(cliente)).collect(Collectors.toList());
+        return clientiDTO.toString();
+    }
+
+    public String clientiPerDataUltimoContatto(){
+        List<Cliente> clientiAZ = clienteRepository.findAll(Sort.by(Sort.Direction.DESC, "dataUltimoContatto"));
+        List<ClienteDTO> clientiDTO = clientiAZ.stream().map(cliente -> fromClienteToClienteDTO(cliente)).collect(Collectors.toList());
+        return clientiDTO.toString();
+    }
+
+    public String clientiPerProvinciaSedeLegale(){
+        List<Cliente> clientiAZ = clienteRepository.findAll(Sort.by(Sort.Direction.DESC, "dataUltimoContatto"));
+        List<ClienteDTO> clientiDTO = clientiAZ.stream().map(cliente -> fromClienteToClienteDTO(cliente)).collect(Collectors.toList());
+        return clientiDTO.toString();
+    }
+    //----------------------------------------------------------------------------------------------------
 
     public void leggiArrayClienti(ArrayList<ClienteDTO> clientiDTO){
 
