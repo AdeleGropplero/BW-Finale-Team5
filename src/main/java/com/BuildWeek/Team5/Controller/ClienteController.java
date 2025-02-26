@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -35,7 +38,7 @@ public class ClienteController {
     FatturaService fatturaService;
 
     @PostMapping("/nuovo")
-    public ResponseEntity<String> nuovoCliente(@RequestPart("dto") @Validated ClienteDTO clienteDTO, BindingResult validation, @RequestPart("logoAziendale") MultipartFile logoAziendale) throws IOException {
+    public ResponseEntity<String> nuovoCliente(@RequestPart("dto") @Validated ArrayList<ClienteDTO> clienteDTOArrayList, BindingResult validation, @RequestPart("logoAziendale") MultipartFile logoAziendale) throws IOException {
         if(validation.hasErrors()){
             StringBuilder messaggio = new StringBuilder("Problemi nella validazione dei dati: \n");
 
@@ -52,12 +55,15 @@ public class ClienteController {
         // l'indirizzo dell'immagine
         String urlImage = mappaUpload.get("secure_url").toString();
         // set che setta la nuova immagine
-        clienteDTO.setLogoAziendale(urlImage);
+
+        //ℹ️ℹ️ℹ️ tutti i clienti hanno lo stesso logo
+        for(ClienteDTO singoloCliente : clienteDTOArrayList){
+            singoloCliente.setLogoAziendale(urlImage);
+        }
 
 
-
-        long id = clienteService.salvaCliente(clienteService.fromClienteDTOtoCliente(clienteDTO));
-        return new ResponseEntity<>("Il cliente con id: " + id + " è stato salvato correttamente!", HttpStatus.CREATED);
+        clienteService.leggiArrayClienti(clienteDTOArrayList);
+        return new ResponseEntity<>("I clienti sono stati salvati correttamente!", HttpStatus.CREATED);
 
        }catch (IOException e){
            return new ResponseEntity<>("Errore!" , HttpStatus.BAD_REQUEST);
@@ -84,6 +90,46 @@ public class ClienteController {
             return new ResponseEntity<>("La fattura con ID " + idFattura + " è stata aggiunta con successo!", HttpStatus.CREATED);
         } catch (ClienteNotFound e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/fatturatoAnnuale")
+    public ResponseEntity<?> getClientiByFatturatoAnnuale(@RequestParam double fatturatoAnnuale){
+        try {
+            List<Cliente> listaClienti = clienteService.getByFatturatoAnnuale(fatturatoAnnuale);
+            return new ResponseEntity<>(listaClienti, HttpStatus.OK);
+        }catch (ClienteNotFound e ){
+            return new ResponseEntity<>("Non è stato trovato nessun cliente", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/dataInserimento")
+    public ResponseEntity<?> getClienteByDataInserimento(@RequestParam LocalDate dataInserimento){
+        try{
+            List<Cliente> listaClienti=clienteService.getByDataInserimento(dataInserimento);
+            return new ResponseEntity<>(listaClienti, HttpStatus.OK);
+        }catch (ClienteNotFound e ){
+            return new ResponseEntity<>("Nessun cliente trovato!", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/dataUltimoContatto")
+    public ResponseEntity<?> getClientiByUltimoContatto(@RequestParam LocalDate dataUltimoContatto){
+        try {
+            List<Cliente> listaClienti = clienteService.getByDataUltimoContatto(dataUltimoContatto);
+            return new ResponseEntity<>(listaClienti, HttpStatus.OK);
+        }catch (ClienteNotFound e){
+            return new ResponseEntity<>("Nessun cliente trovato!", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/nomeContatto")
+    public ResponseEntity<?> getClientiByNomeContatto(@RequestParam String nomeContatto){
+        try {
+            List<Cliente> listaClienti = clienteService.getByNomeContatto(nomeContatto);
+            return  new ResponseEntity<>(listaClienti, HttpStatus.OK);
+        }catch (ClienteNotFound e){
+            return new ResponseEntity<>("Nessun cliente trovato!", HttpStatus.BAD_REQUEST);
         }
     }
 }

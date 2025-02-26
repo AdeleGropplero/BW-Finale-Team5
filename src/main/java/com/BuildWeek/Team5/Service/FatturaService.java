@@ -19,6 +19,8 @@ public class FatturaService {
         return fattura.getId();
     }
 
+
+
     //travaso
     public Fattura fromFatturaDTOtoFattura(FatturaDTO fatturaDTO){
         Fattura fattura = new Fattura();
