@@ -8,7 +8,7 @@ import java.util.Optional;
 
 @Repository
 public interface ImportCapRepository extends JpaRepository<ImportCap, Long> {
-    Optional<ImportCap> findByCodiceIstat(String codiceIstat);
+    Optional<ImportCap> findFirstByCodiceIstat(String codiceIstat);
 
     Optional<ImportCap> findByCap(String cap);
 }

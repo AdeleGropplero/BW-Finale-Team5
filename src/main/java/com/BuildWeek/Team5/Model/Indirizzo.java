@@ -19,14 +19,14 @@ public class Indirizzo {
     @Column(nullable = false)
     private String via;
 
+    @Column(nullable = false)
     private int civico;
 
-    @Column(nullable = false)
-    private String localita; // Sigla provincia, Regione
+    private String provincia; // Sigla provincia, Regione
 
-    @Column(nullable = false)
     private String cap; //ho cambiato da int a String vediamo se da errori
 
+    @Column(nullable = false)
     private String comune;
 
     public Indirizzo(String via, int civico,  String comune) {

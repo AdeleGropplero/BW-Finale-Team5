@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface ImportComuniProvinceRepository extends JpaRepository<ImportComuniProvince, Long> {
 
-    Optional<ImportComuniProvince> findByComune(String comune);
+    Optional<ImportComuniProvince> findFirstByComune(String comune);
 
     Optional<ImportComuniProvince> findByProvincia(String provincia);
 

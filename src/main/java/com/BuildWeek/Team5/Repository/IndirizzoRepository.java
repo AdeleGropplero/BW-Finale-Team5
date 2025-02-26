@@ -9,5 +9,5 @@ import java.util.Optional;
 @Repository
 public interface IndirizzoRepository extends JpaRepository<Indirizzo, Long> {
 
-    Optional<Indirizzo> findByComune(String comune);
+    Optional<Indirizzo> findFirstByComune(String comune);
 }
