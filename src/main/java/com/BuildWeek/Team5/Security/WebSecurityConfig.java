@@ -72,6 +72,7 @@ public class WebSecurityConfig {
                         auth.requestMatchers("/utente/**").permitAll()
                                 .requestMatchers("/cliente/**").permitAll()
                                 .requestMatchers("/fattura/**").permitAll()
+                                .requestMatchers("/admin/**").hasAuthority("ADMIN")
                                 .anyRequest().authenticated());
 
 

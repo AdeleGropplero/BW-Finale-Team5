@@ -10,6 +10,7 @@ import com.BuildWeek.Team5.Payload.UtenteDTO;
 import com.BuildWeek.Team5.Repository.UtenteRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -18,11 +19,40 @@ import org.springframework.stereotype.Service;
 
 public class UtenteService {
 
+    // proprietà admin user
+    @Value("${user.admin.username}")
+    private String adminUsername;
+
+    @Value("${user.admin.email}")
+    private String adminEmail;
+
+    @Value("${user.admin.password}")
+    private String adminPassword;
+
+    @Value("${user.admin.nome}")
+    private String adminNome;
+
+    @Value("${user.admin.cognome}")
+    private String adminCognome;
+
     @Autowired
     UtenteRepository utenteRepository;
 
     @Autowired
     PasswordEncoder passwordEncoder;
+
+    // metodo per creare admin
+    public void createAdmin(){
+
+        // verifico se l'admin è già presente nel database
+        if(utenteRepository.existsByUsername(adminUsername)){
+            return;
+        }
+
+        Utente adminUser = new Utente(adminUsername, adminEmail, passwordEncoder.encode(adminPassword), adminNome, adminCognome);
+        adminUser.setRuolo(new Ruolo(TipoRuolo.ADMIN));
+        utenteRepository.save(adminUser);
+    }
 
     public String salvaUtente(RegistrationRequest utenteRequest){
         checkDuplicatedKey(utenteRequest.getUsername(), utenteRequest.getEmail());
