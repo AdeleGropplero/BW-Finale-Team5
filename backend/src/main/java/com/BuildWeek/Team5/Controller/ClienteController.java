@@ -257,5 +257,10 @@ public class ClienteController {
             return new ResponseEntity<>("Nessun cliente trovato!", HttpStatus.BAD_REQUEST);
         }
     }
+
+    @GetMapping("/allClients")
+    public List<Cliente> getAllClients(){
+        return clienteRepository.findAll();
+    }
     //----------------------------------------------------------------------------------------------------
 }
