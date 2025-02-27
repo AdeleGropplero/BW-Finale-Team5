@@ -40,28 +40,28 @@ public class ClienteService {
         return clientiDTO;
     }
 
-    public String clientiPerFatturato() {
+    public List<ClienteDTO> clientiPerFatturato() {
         List<Cliente> clienti = clienteRepository.findAll(Sort.by(Sort.Direction.DESC, "fatturatoAnnuale"));
         List<ClienteDTO> clientiDTO = clienti.stream().map(cliente -> fromClienteToClienteDTO(cliente)).collect(Collectors.toList());
-        return clientiDTO.toString();
+        return clientiDTO;
     }
 
-    public String clientiPerDataInserimento() {
+    public List<ClienteDTO> clientiPerDataInserimento() {
         List<Cliente> clienti = clienteRepository.findAll(Sort.by(Sort.Direction.DESC, "dataInserimento"));
         List<ClienteDTO> clientiDTO = clienti.stream().map(cliente -> fromClienteToClienteDTO(cliente)).collect(Collectors.toList());
-        return clientiDTO.toString();
+        return clientiDTO;
     }
 
-    public String clientiPerDataUltimoContatto() {
+    public List<ClienteDTO> clientiPerDataUltimoContatto() {
         List<Cliente> clienti = clienteRepository.findAll(Sort.by(Sort.Direction.DESC, "dataUltimoContatto"));
         List<ClienteDTO> clientiDTO = clienti.stream().map(cliente -> fromClienteToClienteDTO(cliente)).collect(Collectors.toList());
-        return clientiDTO.toString();
+        return clientiDTO;
     }
 
-    public String clientiPerProvinciaSedeLegale() {
+    public List<ClienteDTO> clientiPerProvinciaSedeLegale() {
         List<Cliente> clienti = clienteRepository.findByProvinciaSedeLegale();
         List<ClienteDTO> clientiDTO = clienti.stream().map(cliente -> fromClienteToClienteDTO(cliente)).collect(Collectors.toList());
-        return clientiDTO.toString();
+        return clientiDTO;
     }
 
 
@@ -77,37 +77,41 @@ public class ClienteService {
     }
 
     //filtra per fatturato annuale
-    public List<Cliente> getByFatturatoAnnuale(double fatturatoAnnuale) {
-        List<Cliente> clientiByFatturato = clienteRepository.findByFatturatoAnnualeGreaterThan(fatturatoAnnuale);
-        if (clientiByFatturato.isEmpty()) {
+    public List<ClienteDTO> getByFatturatoAnnuale(double fatturatoAnnuale) {
+        List<Cliente> clienti = clienteRepository.findByFatturatoAnnualeGreaterThan(fatturatoAnnuale);
+        if (clienti.isEmpty()) {
             throw new ClienteNotFound("Nessun cliente ha questo fatturato annuale");
         }
-        return clientiByFatturato;
+        List<ClienteDTO> clientiDTO = clienti.stream().map(cliente -> fromClienteToClienteDTO(cliente)).collect(Collectors.toList());
+        return clientiDTO;
     }
 
     //filtra per data di inserimento
-    public List<Cliente> getByDataInserimento(LocalDate dataInserimento) {
-        List<Cliente> clientiByDataInserimento = clienteRepository.findByDataInserimentoBefore(dataInserimento);
-        if (clientiByDataInserimento.isEmpty()) {
+    public List<ClienteDTO> getByDataInserimento(LocalDate dataInserimento) {
+        List<Cliente> clienti= clienteRepository.findByDataInserimentoBefore(dataInserimento);
+        if (clienti.isEmpty()) {
             throw new ClienteNotFound("Nessun cliente inserito prima di questa data!");
         }
-        return clientiByDataInserimento;
+        List<ClienteDTO> clientiDTO = clienti.stream().map(cliente -> fromClienteToClienteDTO(cliente)).collect(Collectors.toList());
+        return clientiDTO;
     }
 
-    public List<Cliente> getByDataUltimoContatto(LocalDate dataUltimoContatto) {
-        List<Cliente> clientiByDataUltimoContatto = clienteRepository.findByDataUltimoContattoBefore(dataUltimoContatto);
-        if (clientiByDataUltimoContatto.isEmpty()) {
+    public List<ClienteDTO> getByDataUltimoContatto(LocalDate dataUltimoContatto) {
+        List<Cliente> clienti = clienteRepository.findByDataUltimoContattoBefore(dataUltimoContatto);
+        if (clienti.isEmpty()) {
             throw new ClienteNotFound("Nessun cliente ha avuto l'ultimo contatto prima di questa data!");
         }
-        return clientiByDataUltimoContatto;
+        List<ClienteDTO> clientiDTO = clienti.stream().map(cliente -> fromClienteToClienteDTO(cliente)).collect(Collectors.toList());
+        return clientiDTO;
     }
 
-    public List<Cliente> getByNomeContatto(String nomeContatto) {
-        List<Cliente> clientiByNomeContatto = clienteRepository.findByNomeContattoContaining(nomeContatto);
-        if (clientiByNomeContatto.isEmpty()) {
+    public List<ClienteDTO> getByNomeContatto(String nomeContatto) {
+        List<Cliente> clienti = clienteRepository.findByNomeContattoContaining(nomeContatto);
+        if (clienti.isEmpty()) {
             throw new ClienteNotFound("Nessun cliente ha questa stringa nel nome!");
         }
-        return clientiByNomeContatto;
+        List<ClienteDTO> clientiDTO = clienti.stream().map(cliente -> fromClienteToClienteDTO(cliente)).collect(Collectors.toList());
+        return clientiDTO;
     }
 
     //travaso

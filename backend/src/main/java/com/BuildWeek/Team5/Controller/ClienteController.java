@@ -177,9 +177,9 @@ public class ClienteController {
     }
 
     @GetMapping("/clientiPerFatturato")
-    public ResponseEntity<String> clientiPerFatturato() {
+    public ResponseEntity<?> clientiPerFatturato() {
         try {
-            String clientiPerFatturato = clienteService.clientiPerFatturato();
+            List<ClienteDTO> clientiPerFatturato = clienteService.clientiPerFatturato();
             return new ResponseEntity<>(clientiPerFatturato, HttpStatus.OK);
         } catch (ClienteNotFound e) {
             return new ResponseEntity<>("Non è stato trovato nessun cliente", HttpStatus.BAD_REQUEST);
@@ -187,9 +187,9 @@ public class ClienteController {
     }
 
     @GetMapping("/clientiPerDataInserimento")
-    public ResponseEntity<String> clientiPerDataInserimento() {
+    public ResponseEntity<?> clientiPerDataInserimento() {
         try {
-            String clientiPerDataInserimento = clienteService.clientiPerDataInserimento();
+            List<ClienteDTO> clientiPerDataInserimento = clienteService.clientiPerDataInserimento();
             return new ResponseEntity<>(clientiPerDataInserimento, HttpStatus.OK);
         } catch (ClienteNotFound e) {
             return new ResponseEntity<>("Non è stato trovato nessun cliente", HttpStatus.BAD_REQUEST);
@@ -197,9 +197,9 @@ public class ClienteController {
     }
 
     @GetMapping("/clientiPerDataUltimoContatto")
-    public ResponseEntity<String> clientiPerDataUltimoContatto() {
+    public ResponseEntity<?> clientiPerDataUltimoContatto() {
         try {
-            String clientiPerDataUltimoContatto = clienteService.clientiPerDataUltimoContatto();
+            List<ClienteDTO> clientiPerDataUltimoContatto = clienteService.clientiPerDataUltimoContatto();
             return new ResponseEntity<>(clientiPerDataUltimoContatto, HttpStatus.OK);
         } catch (ClienteNotFound e) {
             return new ResponseEntity<>("Non è stato trovato nessun cliente", HttpStatus.BAD_REQUEST);
@@ -207,9 +207,9 @@ public class ClienteController {
     }
 
     @GetMapping("/clientiPerProvinciaSedeLegale")
-    public ResponseEntity<String> clientiPerProvinciaSedeLegale() {
+    public ResponseEntity<?> clientiPerProvinciaSedeLegale() {
         try {
-            String clientiPerProvinciaSedeLegale = clienteService.clientiPerProvinciaSedeLegale();
+            List<ClienteDTO> clientiPerProvinciaSedeLegale = clienteService.clientiPerProvinciaSedeLegale();
             return new ResponseEntity<>(clientiPerProvinciaSedeLegale, HttpStatus.OK);
         } catch (ClienteNotFound e) {
             return new ResponseEntity<>("Non è stato trovato nessun cliente", HttpStatus.BAD_REQUEST);
@@ -221,7 +221,7 @@ public class ClienteController {
     @GetMapping("/fatturatoAnnuale")
     public ResponseEntity<?> getClientiByFatturatoAnnuale(@RequestParam double fatturatoAnnuale) {
         try {
-            List<Cliente> listaClienti = clienteService.getByFatturatoAnnuale(fatturatoAnnuale);
+            List<ClienteDTO> listaClienti = clienteService.getByFatturatoAnnuale(fatturatoAnnuale);
             return new ResponseEntity<>(listaClienti, HttpStatus.OK);
         } catch (ClienteNotFound e) {
             return new ResponseEntity<>("Non è stato trovato nessun cliente", HttpStatus.BAD_REQUEST);
@@ -231,7 +231,7 @@ public class ClienteController {
     @GetMapping("/dataInserimento")
     public ResponseEntity<?> getClienteByDataInserimento(@RequestParam LocalDate dataInserimento) {
         try {
-            List<Cliente> listaClienti = clienteService.getByDataInserimento(dataInserimento);
+            List<ClienteDTO> listaClienti = clienteService.getByDataInserimento(dataInserimento);
             return new ResponseEntity<>(listaClienti, HttpStatus.OK);
         } catch (ClienteNotFound e) {
             return new ResponseEntity<>("Nessun cliente trovato!", HttpStatus.BAD_REQUEST);
@@ -241,7 +241,7 @@ public class ClienteController {
     @GetMapping("/dataUltimoContatto")
     public ResponseEntity<?> getClientiByUltimoContatto(@RequestParam LocalDate dataUltimoContatto) {
         try {
-            List<Cliente> listaClienti = clienteService.getByDataUltimoContatto(dataUltimoContatto);
+            List<ClienteDTO> listaClienti = clienteService.getByDataUltimoContatto(dataUltimoContatto);
             return new ResponseEntity<>(listaClienti, HttpStatus.OK);
         } catch (ClienteNotFound e) {
             return new ResponseEntity<>("Nessun cliente trovato!", HttpStatus.BAD_REQUEST);
@@ -251,7 +251,7 @@ public class ClienteController {
     @GetMapping("/nomeContatto")
     public ResponseEntity<?> getClientiByNomeContatto(@RequestParam String nomeContatto) {
         try {
-            List<Cliente> listaClienti = clienteService.getByNomeContatto(nomeContatto);
+            List<ClienteDTO> listaClienti = clienteService.getByNomeContatto(nomeContatto);
             return new ResponseEntity<>(listaClienti, HttpStatus.OK);
         } catch (ClienteNotFound e) {
             return new ResponseEntity<>("Nessun cliente trovato!", HttpStatus.BAD_REQUEST);
