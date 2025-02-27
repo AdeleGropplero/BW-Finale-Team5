@@ -1,5 +1,6 @@
 package com.BuildWeek.Team5.Model;
 
+import com.BuildWeek.Team5.Enum.TipoSede;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,9 +30,13 @@ public class Indirizzo {
     @Column(nullable = false)
     private String comune;
 
-    public Indirizzo(String via, int civico,  String comune) {
+    @Enumerated(EnumType.STRING)
+    private TipoSede sede;
+
+    public Indirizzo(String via, int civico,  String comune, TipoSede sede) {
         this.via = via;
         this.civico = civico;
         this.comune = comune;
+        this.sede = sede;
     }
 }

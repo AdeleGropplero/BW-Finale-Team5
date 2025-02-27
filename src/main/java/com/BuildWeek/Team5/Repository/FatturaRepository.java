@@ -20,4 +20,5 @@ public interface FatturaRepository extends JpaRepository<Fattura, Long> {
     @Query("SELECT f FROM Fattura f WHERE YEAR(f.dataFattura) = :annoFattura")
     List<Fattura> findByDataFattura(@Param("annoFattura") int annoFattura);
     List<Fattura> findByImportoBetween(double importoMin, double importoMax);
+
 }
