@@ -17,8 +17,8 @@ public class Runner implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         System.out.println("⚡ Importazione CSV avviata...");
-        importCsvService.importComuniProvince("src/main/resources/comuni-provincie.csv");
-        importCsvService.importCap("src/main/resources/cap.csv");
+        importCsvService.importComuniProvince("backend/src/main/resources/comuni-provincie.csv");
+        importCsvService.importCap("backend/src/main/resources/cap.csv");
         System.out.println("✅ Importazione completata!");
 
         // inserimento admin
