@@ -34,10 +34,10 @@ public class ClienteService {
 
     //Ordinamento liste clienti --------------------------------------------------
 
-    public String clientiAZ() {
+    public List<ClienteDTO> clientiAZ() {
         List<Cliente> clienti = clienteRepository.findAll(Sort.by(Sort.Direction.ASC, "nomeContatto"));
         List<ClienteDTO> clientiDTO = clienti.stream().map(cliente -> fromClienteToClienteDTO(cliente)).collect(Collectors.toList());
-        return clientiDTO.toString();
+        return clientiDTO;
     }
 
     public String clientiPerFatturato() {

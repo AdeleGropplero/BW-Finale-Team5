@@ -167,9 +167,9 @@ public class ClienteController {
     //Ordinamento liste clienti --------------------------------------------------
 
     @GetMapping("/clientiAZ")
-    public ResponseEntity<String> getClientiAZ() {
+    public ResponseEntity<?> getClientiAZ() {
         try {
-            String clientiAZ = clienteService.clientiAZ();
+            List<ClienteDTO> clientiAZ = clienteService.clientiAZ();
             return new ResponseEntity<>(clientiAZ, HttpStatus.OK);
         } catch (ClienteNotFound e) {
             return new ResponseEntity<>("Non è stato trovato nessun cliente", HttpStatus.BAD_REQUEST);
