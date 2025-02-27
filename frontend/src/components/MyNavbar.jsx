@@ -1,16 +1,21 @@
 import { Button, Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 
 function MyNavbar() {
-  const firstFetch = fetch("http://localhost:8080/cliente/clientiPerFatturato")
-    .then((response) => {
-      console.log(response);
-      if (response.ok) {
-        return response.json();
-      } else {
-        throw new Error("Errore nella richiesta");
-      }
-    })
-    .then((data) => console.log("questi sono i dati ", data));
+  const firstFetch = () => {
+    fetch("http://localhost:8080/cliente/clientiAZ")
+      .then((response) => {
+        //console.log(response);
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error("Errore nella richiesta");
+        }
+      })
+      .then((data) => data.forEach((client) => console.log(client)))
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
@@ -22,13 +27,7 @@ function MyNavbar() {
             <Nav.Link href="#home">Home</Nav.Link>
             <Nav.Link href="#link">Link</Nav.Link>
 
-            <Button
-              onClick={() => {
-                firstFetch;
-              }}
-            >
-              Bottone
-            </Button>
+            <Button onClick={firstFetch}>Bottone</Button>
 
             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
