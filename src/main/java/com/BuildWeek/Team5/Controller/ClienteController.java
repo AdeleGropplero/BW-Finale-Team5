@@ -74,7 +74,7 @@ public class ClienteController {
         }
     }
 
-    @PatchMapping("/{clienteID}")
+    @PatchMapping("/addFattura/{clienteID}")
     public ResponseEntity<String> nuovaFattura(@RequestBody @Validated FatturaDTO fatturaDTO, BindingResult validation, @PathVariable Long clienteID) {
         if (validation.hasErrors()) {
             StringBuilder messaggio = new StringBuilder("Problemi nella validazione dei dati: \n");
@@ -96,6 +96,7 @@ public class ClienteController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+
 
     //Prova post Indirizzo.
     @PostMapping("/indirizzo")
@@ -187,9 +188,6 @@ public class ClienteController {
             return new ResponseEntity<>("Non è stato trovato nessun cliente", HttpStatus.BAD_REQUEST);
         }
     }
-
-
-
 
     //----------------------------------------------------------------------------------------------------
 
