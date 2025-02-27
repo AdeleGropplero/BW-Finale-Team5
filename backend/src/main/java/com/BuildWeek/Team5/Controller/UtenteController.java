@@ -46,7 +46,7 @@ public class UtenteController {
     JwtUtils jwtUtils;
 
     @PostMapping("/registrazione")
-    public ResponseEntity<String> registrazioneUtente(@RequestPart("utente") @Validated RegistrationRequest nuovoUtente, BindingResult validation, @RequestPart(value = "avatar") MultipartFile avatar){
+    public ResponseEntity<String> registrazioneUtente(@RequestPart("utente") @Validated RegistrationRequest nuovoUtente, BindingResult validation){
 
         if(validation.hasErrors()){
             StringBuilder messaggio = new StringBuilder("Problemi nella validazione dei dati: \n");
@@ -60,19 +60,19 @@ public class UtenteController {
         try{
 
             // invio immagine al servizio Cloudinary
-            Map mappaUpload = cloudinary.uploader().upload(avatar.getBytes(), ObjectUtils.emptyMap());
+            //Map mappaUpload = cloudinary.uploader().upload(avatar.getBytes(), ObjectUtils.emptyMap());
 
             // indirizzo dell'immagine
-            String urlImage = mappaUpload.get("secure_url").toString();
+            //String urlImage = mappaUpload.get("secure_url").toString();
 
             // set che setta la nuova immagine
-            nuovoUtente.setAvatar(urlImage);
+            //nuovoUtente.setAvatar(urlImage);
 
            String salvaUtenteMessaggio = utenteService.salvaUtente(nuovoUtente);
 
             return new ResponseEntity<>(salvaUtenteMessaggio, HttpStatus.CREATED);
 
-        } catch (IOException | EmailDuplicated | UsernameDuplicated e){
+        } catch (EmailDuplicated | UsernameDuplicated e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }

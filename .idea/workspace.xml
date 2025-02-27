@@ -5,10 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ca4d59e6-6cf9-4179-b3f0-8976e83feef1" name="Changes" comment="collegamento fe">
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/BuildWeek/Team5/Configurguration/CorsConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/BuildWeek/Team5/Controller/ClienteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/BuildWeek/Team5/Controller/ClienteController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/BuildWeek/Team5/Security/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/BuildWeek/Team5/Security/WebSecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/MyNavbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/MyNavbar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/BuildWeek/Team5/Controller/UtenteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/BuildWeek/Team5/Controller/UtenteController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,16 +59,19 @@
   "keyToString": {
     "Application.Team5Application.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "PreMerge",
+    "git-widget-placeholder": "frontend-fede",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/feder/OneDrive/Desktop/EPICODE/backend/W8/BW-Finale-Team5/backend/pom.xml",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.37586206"
+    "project.structure.side.proportion": "0.37586206",
+    "settings.editor.selected.configurable": "preferences.keymap"
   }
 }]]></component>
   <component name="RunManager">
     <configuration name="Team5Application" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="openjdk-23" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="com.BuildWeek.Team5.Team5Application" />
       <module name="Team5" />
       <extension name="coverage">
