@@ -44,6 +44,9 @@ public class ClienteController {
     @Autowired
     IndirizzoService indirizzoService;
 
+
+    //AGGIUNGI un nuovo CLIENTE
+    //POSTMAN --> http://localhost:8080/cliente/nuovo
     @PostMapping("/nuovo")
     public ResponseEntity<String> nuovoCliente(@RequestPart("dto") @Validated ArrayList<ClienteDTO> clienteDTOArrayList, BindingResult validation, @RequestPart("logoAziendale") MultipartFile logoAziendale) throws IOException {
         if (validation.hasErrors()) {
@@ -74,6 +77,8 @@ public class ClienteController {
         }
     }
 
+    //AGGIUNGI una FATTURA al CLIENTE.
+    //POSTMAN --> http://localhost:8080/cliente/addFattura/{clienteID}
     @PatchMapping("/addFattura/{clienteID}")
     public ResponseEntity<String> nuovaFattura(@RequestBody @Validated FatturaDTO fatturaDTO, BindingResult validation, @PathVariable Long clienteID) {
         if (validation.hasErrors()) {
@@ -97,8 +102,29 @@ public class ClienteController {
         }
     }
 
+    //AGGIUNGI un INDIRIZZO al CLIENTE.
+    //POSTMAN --> http://localhost:8080/cliente/addIndirizzo/{clienteID}
+    @PatchMapping("/addIndirizzo/{clienteID}")
+    public ResponseEntity<String> addIndirizzoAlCliente(@RequestBody @Validated IndirizzoDTO indirizzoDTO, BindingResult validation, @PathVariable Long clienteID) {
+        if (validation.hasErrors()) {
+            StringBuilder messaggio = new StringBuilder("Problemi nella validazione dei dati: \n");
 
-    //Prova post Indirizzo.
+            for (ObjectError error : validation.getAllErrors()) {
+                messaggio.append(error.getDefaultMessage()).append("\n");
+            }
+            return new ResponseEntity<>(messaggio.toString(), HttpStatus.BAD_REQUEST);
+        }
+
+        try {
+            String indirizzoAggiunto = indirizzoService.addIndirizzo(clienteID, indirizzoDTO);
+            return new ResponseEntity<>(indirizzoAggiunto, HttpStatus.CREATED);
+        } catch (ClienteNotFound e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
+    //post Indirizzo. (questo endpoint ci serviva in fase iniziale ma dubito che lo useremo più, dopo l'aggiunta della patch)
     @PostMapping("/indirizzo")
     public ResponseEntity<String> inserisciIndirizzo(@Validated @RequestBody IndirizzoDTO indirizzoDTO, BindingResult validation) {
         if (validation.hasErrors()) {
@@ -119,6 +145,7 @@ public class ClienteController {
         }
     }
 
+    //post Indirizzi. (questo endpoint ci serviva in fase iniziale ma dubito che lo useremo più, dopo l'aggiunta della patch)
     @PostMapping("/batchIndirizzi")
     public ResponseEntity<String> inserisciIndirizzi(@Validated @RequestBody List<IndirizzoDTO> listaDto, BindingResult validation) {
         if (validation.hasErrors()) {
@@ -190,7 +217,7 @@ public class ClienteController {
     }
 
     //----------------------------------------------------------------------------------------------------
-
+    //Filtra liste clienti --------------------------------------------------
     @GetMapping("/fatturatoAnnuale")
     public ResponseEntity<?> getClientiByFatturatoAnnuale(@RequestParam double fatturatoAnnuale) {
         try {
@@ -230,4 +257,5 @@ public class ClienteController {
             return new ResponseEntity<>("Nessun cliente trovato!", HttpStatus.BAD_REQUEST);
         }
     }
+    //----------------------------------------------------------------------------------------------------
 }

@@ -21,39 +21,44 @@ public class ClienteService {
     @Autowired
     ClienteRepository clienteRepository;
 
+    public Cliente trovaCliente(Long id) {
+        Cliente cliente = clienteRepository.findById(id).orElseThrow(() -> new ClienteNotFound("Cliente non trovato"));
+        return cliente;
+    }
+
     //salva
-    public Long salvaCliente(Cliente cliente){
+    public Long salvaCliente(Cliente cliente) {
         clienteRepository.save(cliente);
         return cliente.getIdCliente();
     }
 
     //Ordinamento liste clienti --------------------------------------------------
 
-    public String clientiAZ(){
+    public String clientiAZ() {
         List<Cliente> clienti = clienteRepository.findAll(Sort.by(Sort.Direction.ASC, "nomeContatto"));
         List<ClienteDTO> clientiDTO = clienti.stream().map(cliente -> fromClienteToClienteDTO(cliente)).collect(Collectors.toList());
         return clientiDTO.toString();
     }
 
-    public String clientiPerFatturato(){
+    public String clientiPerFatturato() {
         List<Cliente> clienti = clienteRepository.findAll(Sort.by(Sort.Direction.DESC, "fatturatoAnnuale"));
         List<ClienteDTO> clientiDTO = clienti.stream().map(cliente -> fromClienteToClienteDTO(cliente)).collect(Collectors.toList());
         return clientiDTO.toString();
     }
 
-    public String clientiPerDataInserimento(){
+    public String clientiPerDataInserimento() {
         List<Cliente> clienti = clienteRepository.findAll(Sort.by(Sort.Direction.DESC, "dataInserimento"));
         List<ClienteDTO> clientiDTO = clienti.stream().map(cliente -> fromClienteToClienteDTO(cliente)).collect(Collectors.toList());
         return clientiDTO.toString();
     }
 
-    public String clientiPerDataUltimoContatto(){
+    public String clientiPerDataUltimoContatto() {
         List<Cliente> clienti = clienteRepository.findAll(Sort.by(Sort.Direction.DESC, "dataUltimoContatto"));
         List<ClienteDTO> clientiDTO = clienti.stream().map(cliente -> fromClienteToClienteDTO(cliente)).collect(Collectors.toList());
         return clientiDTO.toString();
     }
 
-    public String clientiPerProvinciaSedeLegale(){
+    public String clientiPerProvinciaSedeLegale() {
         List<Cliente> clienti = clienteRepository.findByProvinciaSedeLegale();
         List<ClienteDTO> clientiDTO = clienti.stream().map(cliente -> fromClienteToClienteDTO(cliente)).collect(Collectors.toList());
         return clientiDTO.toString();
@@ -63,50 +68,50 @@ public class ClienteService {
     //----------------------------------------------------------------------------------------------------
 
 
-    public void leggiArrayClienti(ArrayList<ClienteDTO> clientiDTO){
+    public void leggiArrayClienti(ArrayList<ClienteDTO> clientiDTO) {
 
-        for(ClienteDTO singoloCliente : clientiDTO){
+        for (ClienteDTO singoloCliente : clientiDTO) {
             Cliente nuovoCliente = fromClienteDTOtoCliente(singoloCliente);
             salvaCliente(nuovoCliente);
         }
     }
 
     //filtra per fatturato annuale
-    public List<Cliente> getByFatturatoAnnuale(double fatturatoAnnuale){
+    public List<Cliente> getByFatturatoAnnuale(double fatturatoAnnuale) {
         List<Cliente> clientiByFatturato = clienteRepository.findByFatturatoAnnualeGreaterThan(fatturatoAnnuale);
-        if(clientiByFatturato.isEmpty()){
+        if (clientiByFatturato.isEmpty()) {
             throw new ClienteNotFound("Nessun cliente ha questo fatturato annuale");
         }
         return clientiByFatturato;
     }
 
     //filtra per data di inserimento
-    public List<Cliente> getByDataInserimento(LocalDate dataInserimento){
-        List<Cliente> clientiByDataInserimento =  clienteRepository.findByDataInserimentoBefore(dataInserimento);
-        if(clientiByDataInserimento.isEmpty()){
+    public List<Cliente> getByDataInserimento(LocalDate dataInserimento) {
+        List<Cliente> clientiByDataInserimento = clienteRepository.findByDataInserimentoBefore(dataInserimento);
+        if (clientiByDataInserimento.isEmpty()) {
             throw new ClienteNotFound("Nessun cliente inserito prima di questa data!");
         }
         return clientiByDataInserimento;
     }
 
-    public List<Cliente> getByDataUltimoContatto(LocalDate dataUltimoContatto){
+    public List<Cliente> getByDataUltimoContatto(LocalDate dataUltimoContatto) {
         List<Cliente> clientiByDataUltimoContatto = clienteRepository.findByDataUltimoContattoBefore(dataUltimoContatto);
-        if(clientiByDataUltimoContatto.isEmpty()){
+        if (clientiByDataUltimoContatto.isEmpty()) {
             throw new ClienteNotFound("Nessun cliente ha avuto l'ultimo contatto prima di questa data!");
         }
         return clientiByDataUltimoContatto;
     }
 
-    public List<Cliente> getByNomeContatto(String nomeContatto){
+    public List<Cliente> getByNomeContatto(String nomeContatto) {
         List<Cliente> clientiByNomeContatto = clienteRepository.findByNomeContattoContaining(nomeContatto);
-        if(clientiByNomeContatto.isEmpty()){
+        if (clientiByNomeContatto.isEmpty()) {
             throw new ClienteNotFound("Nessun cliente ha questa stringa nel nome!");
         }
         return clientiByNomeContatto;
     }
 
     //travaso
-    public Cliente fromClienteDTOtoCliente(ClienteDTO clienteDTO){
+    public Cliente fromClienteDTOtoCliente(ClienteDTO clienteDTO) {
         Cliente cliente = new Cliente();
         cliente.setPartitaIva(clienteDTO.getPartitaIva());
         cliente.setEmail(clienteDTO.getEmail());
@@ -124,7 +129,7 @@ public class ClienteService {
         return cliente;
     }
 
-    public ClienteDTO fromClienteToClienteDTO(Cliente cliente){
+    public ClienteDTO fromClienteToClienteDTO(Cliente cliente) {
         ClienteDTO clienteDTO = new ClienteDTO();
         clienteDTO.setPartitaIva(cliente.getPartitaIva());
         clienteDTO.setEmail(cliente.getEmail());
@@ -141,7 +146,6 @@ public class ClienteService {
         clienteDTO.setRagioneSociale(cliente.getRagioneSociale());
         return clienteDTO;
     }
-
 
 
 }
