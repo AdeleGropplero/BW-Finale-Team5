@@ -46,7 +46,7 @@ public class UtenteController {
     JwtUtils jwtUtils;
 
     @PostMapping("/registrazione")
-    public ResponseEntity<String> registrazioneUtente(@RequestPart("utente") @Validated RegistrationRequest nuovoUtente, BindingResult validation){
+    public ResponseEntity<String> registrazioneUtente(@RequestBody @Validated RegistrationRequest nuovoUtente, BindingResult validation){
 
         if(validation.hasErrors()){
             StringBuilder messaggio = new StringBuilder("Problemi nella validazione dei dati: \n");
