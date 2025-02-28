@@ -1,6 +1,9 @@
 package com.BuildWeek.Team5.Service;
 
 import com.BuildWeek.Team5.Exception.ClienteNotFound;
+import com.BuildWeek.Team5.Exception.EmailDuplicated;
+import com.BuildWeek.Team5.Exception.PartitaIvaDuplicated;
+import com.BuildWeek.Team5.Exception.UsernameDuplicated;
 import com.BuildWeek.Team5.Model.Cliente;
 import com.BuildWeek.Team5.Payload.ClienteDTO;
 import com.BuildWeek.Team5.Repository.ClienteRepository;
@@ -28,6 +31,9 @@ public class ClienteService {
 
     //salva
     public Long salvaCliente(Cliente cliente) {
+
+        checkDuplicatedKey(cliente.getPartitaIva(), cliente.getEmail());
+
         clienteRepository.save(cliente);
         return cliente.getIdCliente();
     }
@@ -112,6 +118,18 @@ public class ClienteService {
         }
         List<ClienteDTO> clientiDTO = clienti.stream().map(cliente -> fromClienteToClienteDTO(cliente)).collect(Collectors.toList());
         return clientiDTO;
+    }
+
+    // verificare eventuali campi duplicati --> la gestione try/catch affidata al controller
+    public void checkDuplicatedKey(String partitaIva, String email) {
+
+        if (clienteRepository.existsByPartitaIva(partitaIva)) {
+            throw new PartitaIvaDuplicated("La partita iva inserita è già stata utilizzata");
+        }
+
+        if (clienteRepository.existsByEmail(email)) {
+            throw new EmailDuplicated("L'email inserita è già stata utilizzata");
+        }
     }
 
     //travaso

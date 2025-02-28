@@ -1,7 +1,6 @@
 package com.BuildWeek.Team5.Controller;
 
-import com.BuildWeek.Team5.Exception.ClienteNotFound;
-import com.BuildWeek.Team5.Exception.IndirizzoNotFound;
+import com.BuildWeek.Team5.Exception.*;
 import com.BuildWeek.Team5.Model.Cliente;
 import com.BuildWeek.Team5.Model.Fattura;
 import com.BuildWeek.Team5.Model.Indirizzo;
@@ -48,7 +47,7 @@ public class ClienteController {
     //AGGIUNGI un nuovo CLIENTE
     //POSTMAN --> http://localhost:8080/cliente/nuovo
     @PostMapping("/nuovo")
-    public ResponseEntity<String> nuovoCliente(@RequestPart("dto") @Validated ArrayList<ClienteDTO> clienteDTOArrayList, BindingResult validation, @RequestPart("logoAziendale") MultipartFile logoAziendale) throws IOException {
+    public ResponseEntity<String> nuovoCliente(@RequestBody @Validated ClienteDTO clienteDTO, BindingResult validation) throws IOException {
         if (validation.hasErrors()) {
             StringBuilder messaggio = new StringBuilder("Problemi nella validazione dei dati: \n");
 
@@ -60,20 +59,21 @@ public class ClienteController {
 
         try {
             //invio immagine al servizio Cloudinary
-            Map mappaUpload = cloudinary.uploader().upload(logoAziendale.getBytes(), ObjectUtils.emptyMap());
+            //Map mappaUpload = cloudinary.uploader().upload(logoAziendale.getBytes(), ObjectUtils.emptyMap());
             // l'indirizzo dell'immagine
-            String urlImage = mappaUpload.get("secure_url").toString();
+            //String urlImage = mappaUpload.get("secure_url").toString();
             // set che setta la nuova immagine
 
             //ℹ️ℹ️ℹ️ tutti i clienti hanno lo stesso logo
-            for (ClienteDTO singoloCliente : clienteDTOArrayList) {
-                singoloCliente.setLogoAziendale(urlImage);
-            }
+            //for (ClienteDTO singoloCliente : clienteDTOArrayList) {
+             //   singoloCliente.setLogoAziendale(urlImage);
+           // }
 
-            clienteService.leggiArrayClienti(clienteDTOArrayList);
-            return new ResponseEntity<>("I clienti sono stati salvati correttamente!", HttpStatus.CREATED);
-        } catch (IOException e) {
-            return new ResponseEntity<>("Errore!", HttpStatus.BAD_REQUEST);
+            Cliente cliente = clienteService.fromClienteDTOtoCliente(clienteDTO);
+            long idCliente = clienteService.salvaCliente(cliente);
+            return new ResponseEntity<>("Il cliente con ID " + idCliente + " è stato salvato correttamente!", HttpStatus.CREATED);
+        } catch (EmailDuplicated | PartitaIvaDuplicated e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 

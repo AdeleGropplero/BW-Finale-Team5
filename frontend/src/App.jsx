@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter, Route, Routes } from "react-router";
 import MyNavbar from "./components/MyNavbar";
 import Homepage from "./components/Homepage";
-import InserisciCliente from "./components/InserisciCliente";
+import Cliente from "./components/Cliente";
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
       <MyNavbar />
       <Routes>
         <Route path="/" element={<Homepage />} />
-        <Route path="/cliente" element={<InserisciCliente />} />
+        <Route path="/cliente" element={<Cliente />} />
       </Routes>
     </BrowserRouter>
   );

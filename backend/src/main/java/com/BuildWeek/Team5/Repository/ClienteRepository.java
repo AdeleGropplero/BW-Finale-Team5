@@ -11,6 +11,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ClienteRepository extends JpaRepository<Cliente, Long> {
+    boolean existsByPartitaIva(String partitaIva);
+    boolean existsByEmail( String email );
+
     List<Cliente> findByFatturatoAnnualeGreaterThan(double fatturatoAnnuale);
 
     List<Cliente> findByDataInserimentoBefore(LocalDate dataInserimento);
