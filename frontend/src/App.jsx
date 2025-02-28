@@ -6,6 +6,7 @@ import Homepage from "./components/Homepage";
 import Cliente from "./components/Cliente";
 import Fattura from "./components/Fattura";
 import Login from "./components/Login";
+import AdminCheck from "./components/AdminCheck";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/utente" element={<Homepage />} />
         <Route path="/cliente" element={<Cliente />} />
         <Route path="/fattura" element={<Fattura />} />
+        <Route path="/adminCheck" element={<AdminCheck />} />
       </Routes>
     </BrowserRouter>
   );
