@@ -24,7 +24,7 @@ public class JwtUtils {
     private String jwtExpiration;
 
     // metodo per la creazione del JWT
-    public String createJwtToken(Authentication authentication){
+    public String createJwtToken(Authentication authentication) {
 
         UtenteDetailsImpl utentePrincipal = (UtenteDetailsImpl) authentication.getPrincipal();
 
@@ -32,6 +32,7 @@ public class JwtUtils {
 
         return Jwts.builder()
                 .setSubject(utentePrincipal.getUsername())
+                .claim("ruolo", utentePrincipal.getRuolo().getAuthority())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expirationTime))
                 .signWith(getKey(), SignatureAlgorithm.HS256)
