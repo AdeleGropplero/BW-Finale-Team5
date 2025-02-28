@@ -33,7 +33,11 @@ function MyNavbar() {
                   Login
                 </Link>
               </NavDropdown.Item>
-              <NavDropdown.Item>Info fatture</NavDropdown.Item>
+              <NavDropdown.Item>
+                <Link to="/adminCheck" className="text-decoration-none text-dark">
+                  Info fatture
+                </Link>
+              </NavDropdown.Item>
               <NavDropdown.Item>Info clienti</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item href="#action/3.4">Exit</NavDropdown.Item>
