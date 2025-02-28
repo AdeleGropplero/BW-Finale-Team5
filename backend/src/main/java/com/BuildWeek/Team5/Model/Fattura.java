@@ -26,6 +26,10 @@ public class Fattura {
     @Enumerated(EnumType.STRING)
     private StatoFattura statoFattura;
 
+    @ManyToOne
+    @JoinColumn(name="cliente_id")
+    private Cliente cliente;
+
 
 
 }

@@ -10,21 +10,29 @@ function MyNavbar() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link>
-              <Link to="/" className="text-decoration-none text-dark">
-                Home
+              <Link to="/utente" className="text-decoration-none text-dark">
+                Utenti
               </Link>
             </Nav.Link>
 
             <Nav.Link>
-              <Link to="/Cliente" className="text-decoration-none text-dark">
+              <Link to="/cliente" className="text-decoration-none text-dark">
                 Clienti
               </Link>
             </Nav.Link>
 
-            <Nav.Link>Fatture</Nav.Link>
+            <Nav.Link>
+              <Link to="/fattura" className="text-decoration-none text-dark">
+                Fatture
+              </Link>
+            </Nav.Link>
 
             <NavDropdown title="Login" id="basic-nav-dropdown">
-              <NavDropdown.Item>Login</NavDropdown.Item>
+              <NavDropdown.Item>
+                <Link to="/" className="text-decoration-none text-dark">
+                  Login
+                </Link>
+              </NavDropdown.Item>
               <NavDropdown.Item>Info fatture</NavDropdown.Item>
               <NavDropdown.Item>Info clienti</NavDropdown.Item>
               <NavDropdown.Divider />

@@ -29,7 +29,7 @@ const Cliente = () => {
   return (
     <>
       <Container className="mt-5 my-5">
-        <h1 className="mb-4">Registrazione nuovo cliente</h1>
+        <h1 className="mb-4">Registrazione nuovo cliente 🥷</h1>
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3">
             <Form.Label>Partita IVA</Form.Label>

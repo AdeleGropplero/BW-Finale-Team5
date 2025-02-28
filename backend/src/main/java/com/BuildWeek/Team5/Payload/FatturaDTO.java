@@ -1,6 +1,7 @@
 package com.BuildWeek.Team5.Payload;
 
 import com.BuildWeek.Team5.Enum.StatoFattura;
+import com.BuildWeek.Team5.Model.Cliente;
 import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -19,6 +20,8 @@ public class FatturaDTO {
     private double importo;
     @Enumerated(EnumType.STRING)
     private StatoFattura statoFattura;
+
+    private Cliente cliente;
 
     public FatturaDTO() {
         this.statoFattura = StatoFattura.values()[new Random().nextInt(StatoFattura.values().length)];

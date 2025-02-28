@@ -83,6 +83,7 @@ public class FatturaService {
         fattura.setDataFattura(fatturaDTO.getDataFattura());
         fattura.setImporto(fatturaDTO.getImporto());
         fattura.setStatoFattura(fatturaDTO.getStatoFattura());
+        fattura.setCliente(fatturaDTO.getCliente());
         return fattura;
     }
 
@@ -91,6 +92,7 @@ public class FatturaService {
         fatturaDTO.setDataFattura(fattura.getDataFattura());
         fatturaDTO.setImporto(fattura.getImporto());
         fatturaDTO.setStatoFattura(fattura.getStatoFattura());
+        fatturaDTO.setCliente(fattura.getCliente());
         return fatturaDTO;
     }
 

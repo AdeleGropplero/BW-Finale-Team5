@@ -54,8 +54,7 @@ public class Cliente {
 
     private String logoAziendale;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name="cliente_id")
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.PERSIST)
     private Set<Fattura> fatture;
 
     @OneToMany(cascade = CascadeType.PERSIST)

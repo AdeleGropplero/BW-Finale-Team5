@@ -41,6 +41,8 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
+        String path = request.getServletPath();
+
         // recupero la sottostringa dopo "Bearer " oppure null
         String jwt = analizzaJwt(request);
 
