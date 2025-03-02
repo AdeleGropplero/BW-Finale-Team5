@@ -7,10 +7,12 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.List;
 
 @Component
 
@@ -30,9 +32,14 @@ public class JwtUtils {
 
         long expirationTime = Long.parseLong(jwtExpiration);
 
+        // conversione della lista di ruoli in una lista di stringhe
+        List<String> ruoli = utentePrincipal.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .toList();
+
         return Jwts.builder()
                 .setSubject(utentePrincipal.getUsername())
-                .claim("ruolo", utentePrincipal.getRuolo().getAuthority())
+                .claim("ruoli", ruoli)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expirationTime))
                 .signWith(getKey(), SignatureAlgorithm.HS256)

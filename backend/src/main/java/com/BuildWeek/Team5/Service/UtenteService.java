@@ -50,7 +50,7 @@ public class UtenteService {
         }
 
         Utente adminUser = new Utente(adminUsername, adminEmail, passwordEncoder.encode(adminPassword), adminNome, adminCognome);
-        adminUser.setRuolo(new Ruolo(TipoRuolo.ADMIN));
+        adminUser.setRuolo(new Ruolo(TipoRuolo.ROLE_ADMIN));
         utenteRepository.save(adminUser);
     }
 
@@ -68,7 +68,7 @@ public class UtenteService {
         );
 
         // ❗❗ al momento tutti gli utenti si stanno registrando come user
-        utente.setRuolo(new Ruolo(TipoRuolo.USER));
+        utente.setRuolo(new Ruolo(TipoRuolo.ROLE_USER));
         utenteRepository.save(utente);
         return "L'utente " + utente.getUsername() + " con id " + utente.getId() + " è stato salvato correttamente";
     }

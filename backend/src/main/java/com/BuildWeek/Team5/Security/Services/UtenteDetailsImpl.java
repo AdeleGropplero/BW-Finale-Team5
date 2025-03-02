@@ -27,18 +27,19 @@ public class UtenteDetailsImpl implements UserDetails{
     @JsonIgnore
     private String password;
 
-    private GrantedAuthority ruolo;
+    // Spring Security si aspetta una collection di autorità
+    private Collection<? extends GrantedAuthority> ruoli;
 
     public static UtenteDetailsImpl costruisciDettagli(Utente utente){
 
         // conversione del ruolo in granted authoruty per poter essere riconosciuto da Spring Security
         GrantedAuthority ruoloGranted = new SimpleGrantedAuthority(utente.getRuolo().getTipoRuolo().name());
-        return new UtenteDetailsImpl(utente.getId(), utente.getUsername(), utente.getEmail(), utente.getPassword(), ruoloGranted);
+        return new UtenteDetailsImpl(utente.getId(), utente.getUsername(), utente.getEmail(), utente.getPassword(), List.of(ruoloGranted));
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(ruolo);
+        return ruoli;
     }
 
     @Override

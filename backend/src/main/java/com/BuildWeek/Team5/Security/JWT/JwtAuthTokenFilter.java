@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -14,6 +15,8 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Collection;
+import java.util.List;
 
 public class JwtAuthTokenFilter extends OncePerRequestFilter {
 
@@ -46,6 +49,13 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
         // recupero la sottostringa dopo "Bearer " oppure null
         String jwt = analizzaJwt(request);
 
+        // Verifico se il token è stato trovato
+        if (jwt != null) {
+            System.out.println("Token JWT trovato: " + jwt);
+        } else {
+            System.out.println("Nessun token JWT trovato nell'header Authorization");
+        }
+
         // se la richiesta presenta un JWT lo convalidiamo --> si richiama il metodo in JwtUtils
         if(jwt != null && jwtUtils.validazioneJwtToken(jwt)){
 
@@ -67,6 +77,10 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
 
             // impostare lo userDetails corrente nel contesto di Security
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+
+            // verifico se l'autenticazione va a buon fine
+            System.out.println("Utente autenticato: " + username);
+            System.out.println("Ruoli: " + utenteDetails.getAuthorities());
         }
 
         filterChain.doFilter(request, response);
